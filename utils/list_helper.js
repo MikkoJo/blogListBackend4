@@ -11,11 +11,9 @@ const totalLikes = (blogs) => {
 }
 
 const mostLikes = (blogs) => {
-  const mostLikes = blogs.reduce((previousLikes, currentLikes) => {
-    return previousLikes > currentLikes.likes
-      ? previousLikes
-      : currentLikes.likes
-  })
+  const mostLikes = blogs.reduce((previousBlog, currentBlog) => {
+    return previousBlog.likes > currentBlog.likes ? previousBlog : currentBlog
+  }, {})
   return {
     title: mostLikes.title,
     author: mostLikes.author,

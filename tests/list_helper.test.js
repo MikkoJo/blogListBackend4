@@ -149,12 +149,27 @@ describe('most likes', () => {
     },
   ]
 
-  test('when list with one blog', () => {
+  test('when list has only one blog', () => {
     expect(listHelper.mostLikes(listWithOneBlog)).toEqual({
       title: 'Go To Statement Considered Harmful',
       author: 'Edsger W. Dijkstra',
       url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
       likes: 5,
     })
+  })
+
+  test('when list has multiple blogs', () => {
+    expect(listHelper.mostLikes(blogs)).toEqual({
+      title: 'Canonical string reduction',
+      author: 'Edsger W. Dijkstra',
+      url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
+      likes: 12,
+    })
+  })
+
+  test('when list is empty', () => {
+    const total = listHelper.mostLikes([])
+
+    expect(total).toEqual({})
   })
 })
