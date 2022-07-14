@@ -86,7 +86,7 @@ describe('total likes', () => {
   })
 })
 
-describe('most likes', () => {
+describe('favorite blog', () => {
   const listWithOneBlog = [
     {
       _id: '5a422aa71b54a676234d17f8',
@@ -150,7 +150,7 @@ describe('most likes', () => {
   ]
 
   test('when list has only one blog', () => {
-    expect(listHelper.mostLikes(listWithOneBlog)).toEqual({
+    expect(listHelper.favoriteBlog(listWithOneBlog)).toEqual({
       title: 'Go To Statement Considered Harmful',
       author: 'Edsger W. Dijkstra',
       url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
@@ -159,7 +159,7 @@ describe('most likes', () => {
   })
 
   test('when list has multiple blogs', () => {
-    expect(listHelper.mostLikes(blogs)).toEqual({
+    expect(listHelper.favoriteBlog(blogs)).toEqual({
       title: 'Canonical string reduction',
       author: 'Edsger W. Dijkstra',
       url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
@@ -168,7 +168,7 @@ describe('most likes', () => {
   })
 
   test('when list is empty', () => {
-    const total = listHelper.mostLikes([])
+    const total = listHelper.favoriteBlog([])
 
     expect(total).toEqual({})
   })
