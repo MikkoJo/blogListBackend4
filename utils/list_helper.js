@@ -3,11 +3,11 @@ const dummy = (blogs) => {
 }
 
 const totalLikes = (blogs) => {
-  let total = 0
-  blogs.forEach((blog) => {
-    total += blog.likes
-  })
-  return total
+  // let total = 0
+  // blogs.forEach((blog) => {
+  //   total += blog.likes
+  // })
+  return blogs.reduce((total, currentBlog) => total + currentBlog.likes, 0)
 }
 
 const favoriteBlog = (blogs) => {
