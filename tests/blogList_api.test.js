@@ -30,13 +30,21 @@ beforeEach(async () => {
 })
 
 describe('Blog list tests', () => {
-  test('ger all blogs', async () => {
+  test('get all blogs', async () => {
     const response = await api
       .get('/api/blogs')
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
     expect(response.body).toHaveLength(initialBlogs.length)
+  })
+
+  test('check blog id field is id and not _id', async () => {
+    const response = await api.get('/api/blogs')
+    const blogToInspect = response.body[0]
+    console.log(blogToInspect._id)
+    expect(blogToInspect.id).toBeDefined()
+    expect(blogToInspect._id).not.toBeDefined()
   })
 })
 
