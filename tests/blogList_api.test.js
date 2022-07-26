@@ -29,7 +29,7 @@ beforeEach(async () => {
   await Blog.insertMany(initialBlogs)
 })
 
-describe('Blog list tests', () => {
+describe('Blog list GET tests', () => {
   test('get all blogs', async () => {
     const response = await api
       .get('/api/blogs')
@@ -42,9 +42,28 @@ describe('Blog list tests', () => {
   test('check blog id field is id and not _id', async () => {
     const response = await api.get('/api/blogs')
     const blogToInspect = response.body[0]
-    console.log(blogToInspect._id)
     expect(blogToInspect.id).toBeDefined()
     expect(blogToInspect._id).not.toBeDefined()
+  })
+})
+
+describe('Blog list POST tests', () => {
+  test('Post blog to MongoDB', async () => {
+    const blogToSave = {
+      title: 'Canonical string reduction',
+      author: 'Edsger W. Dijkstra',
+      url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
+      likes: 12,
+    }
+    const response = await api
+      .post('/api/blogs', blogToSave)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    console.log(response.body)
+    const getResponse = await api.get('/api/blogs')
+    const blogsInDb = getResponse.body
+    expect(blogsInDb.length).toBe(initialBlogs.length + 1)
   })
 })
 
