@@ -4,9 +4,9 @@
   "description": "Osa4",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "jest --verbose",
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "test": "NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint ."
   },
   "repository": {
@@ -29,7 +29,8 @@
     "eslint-plugin-promise": "^6.0.0",
     "jest": "^28.1.2",
     "nodemon": "^2.0.18",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "supertest": "^6.2.4"
   },
   "dependencies": {
     "cors": "^2.8.5",
