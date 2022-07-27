@@ -56,14 +56,22 @@ describe('Blog list POST tests', () => {
       likes: 12,
     }
     const response = await api
-      .post('/api/blogs', blogToSave)
+      .post('/api/blogs/')
+      .send(blogToSave)
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
-    console.log(response.body)
     const getResponse = await api.get('/api/blogs')
     const blogsInDb = getResponse.body
     expect(blogsInDb.length).toBe(initialBlogs.length + 1)
+
+    const savedBlog = {
+      title: response.body.title,
+      author: response.body.author,
+      url: response.body.url,
+      likes: response.body.likes,
+    }
+    expect(savedBlog).toEqual(blogToSave)
   })
 })
 
