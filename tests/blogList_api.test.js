@@ -73,6 +73,35 @@ describe('Blog list POST tests', () => {
     }
     expect(savedBlog).toEqual(blogToSave)
   })
+
+  test('Set likes to 0 if not supplied', async () => {
+    const blogToSave = {
+      title: 'Canonical string reduction',
+      author: 'Edsger W. Dijkstra',
+      url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
+    }
+    const response = await api.post('/api/blogs/').send(blogToSave).expect(201)
+    expect(response.body.likes).toBe(0)
+  })
+
+  test('No title or url', async () => {
+    let blogToSave = {
+      author: 'Edsger W. Dijkstra',
+      url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
+    }
+    await api.post('/api/blogs/').send(blogToSave).expect(400)
+
+    blogToSave = {
+      title: 'Canonical string reduction',
+      author: 'Edsger W. Dijkstra',
+    }
+    await api.post('/api/blogs/').send(blogToSave).expect(400)
+
+    blogToSave = {
+      url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
+    }
+    await api.post('/api/blogs/').send(blogToSave).expect(400)
+  })
 })
 
 afterAll(() => {
